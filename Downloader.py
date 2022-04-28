@@ -1,6 +1,7 @@
 from pytube import YouTube, Playlist
 from pyperclip import paste
 import os
+path = '~/Music/'
 def download(yt:YouTube, type:str, path:str):
     print(yt.title)
     if type == "V": yt.streams.get_highest_resolution().download(path)
@@ -11,10 +12,10 @@ def download(yt:YouTube, type:str, path:str):
         if os.path.exists(audioN): os.remove(audioN)
         os.rename(audio, audioN)
 def getYT(type:str, link:str):
-    try: download(YouTube(link), type, '')
+    try: download(YouTube(link), type, path)
     except:
         try:
             pl = Playlist(link)
-            for i in pl.video_urls: download(YouTube(i), type, pl.title)
+            for i in pl.video_urls: download(YouTube(i), type, path + pl.title)
         except Exception as e: print(e)
 getYT(input("V/A:").upper(), paste())
