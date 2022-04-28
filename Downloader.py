@@ -1,7 +1,8 @@
 from pytube import YouTube, Playlist
 from pyperclip import paste
+from pathlib import Path
 import os
-path = '~/Music/'
+path = str(Path.home() / "Music")
 def download(yt:YouTube, type:str, path:str):
     print(yt.title)
     if type == "V": yt.streams.get_highest_resolution().download(path)
